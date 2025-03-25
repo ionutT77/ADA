@@ -9,7 +9,7 @@ public class MyAVLMapClient {
         StringBuilder sb = new StringBuilder(n);
         for (int i = 0; i < n; i++) {
             // generate a random index in Alphabet
-            int index = (int) (Alphabet.length() * Math.random());
+            int index = (int)(Alphabet.length() * Math.random());
             // add corresponding character to string
             sb.append(Alphabet.charAt(index));
         }
@@ -72,7 +72,7 @@ public class MyAVLMapClient {
         }
         System.out.println("\n");
 
-        System.out.println("Delete key " + toDelete + " from map2 MyTreeMap ");
+        System.out.println("Delete key " + toDelete + " from map2 MySortedMap ");
         map2.remove(toDelete);
         System.out.println("Entries of map2 after deleting: ");
         for (Map.Entry<Integer, String> s : map2.getEntries()) {
