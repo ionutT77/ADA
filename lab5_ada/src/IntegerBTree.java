@@ -147,43 +147,73 @@ public class IntegerBTree {
     }
 
     public int successor(int key) {
+        // Start from the root node
         BTreeNode node = root;
+        // Variable to keep track of the potential successor node
         BTreeNode successorNode = null;
+        // Traverse the tree until a null node is reached
         while (node != null) {
+            // Initialize index i to 0
             int i = 0;
+            // Traverse the keys in the current node to find the position of the key
             while (i < node.n && key >= node.key[i]) {
                 i++;
             }
+            // If a key greater than the given key is found, update successorNode and move to the child
             if (i < node.n) {
                 successorNode = node;
                 node = node.child[i];
             } else {
+                // If no such key is found, move to the rightmost child
                 node = node.child[node.n];
             }
         }
+        // If a potential successor node is found
         if (successorNode != null) {
+            // Traverse the keys in the successor node to find the smallest key greater than the given key
             for (int j = 0; j < successorNode.n; j++) {
                 if (successorNode.key[j] > key) {
                     return successorNode.key[j];
                 }
             }
         }
-        return -1; // No successor found
+        // Return -1 if no successor is found
+        return -1;
     }
 
     public int predecessor(int key) {
+        // Start from the root node
         BTreeNode node = root;
+        // Variable to keep track of the potential predecessor node
+        BTreeNode predecessorNode = null;
+        // Traverse the tree until a null node is reached
         while (node != null) {
+            // Initialize index i to the last key in the node
             int i = node.n - 1;
+            // Traverse the keys in the current node from right to left to find the position of the key
             while (i >= 0 && key <= node.key[i]) {
                 i--;
             }
+            // If a key smaller than the given key is found, update predecessorNode and move to the child
             if (i >= 0) {
-                return node.key[i];
+                predecessorNode = node;
+                node = node.child[i + 1];
+            } else {
+                // If no such key is found, move to the leftmost child
+                node = node.child[0];
             }
-            node = node.leaf ? null : node.child[i + 1];
         }
-        return -1; // No predecessor found
+        // If a potential predecessor node is found
+        if (predecessorNode != null) {
+            // Traverse the keys in the predecessor node from right to left to find the largest key smaller than the given key
+            for (int j = predecessorNode.n - 1; j >= 0; j--) {
+                if (predecessorNode.key[j] < key) {
+                    return predecessorNode.key[j];
+                }
+            }
+        }
+        // Return -1 if no predecessor is found
+        return -1;
     }
 
     public void inorder() {
